@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双十一惊喜揭晓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Ma Shan Zheng', 'ZCOOL QingKe HuangYou', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 10px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd, #c2e9fb);
+            border-radius: 40px;
+            animation: gradient 10s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            color: #e91e63;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0px rgba(255, 182, 193, 0.5);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+        
+        h1::before, h1::after {
+            content: '❀';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff4081;
+            font-size: 2rem;
+        }
+        
+        h1::before {
+            left: -50px;
+        }
+        
+        h1::after {
+            right: -50px;
+        }
+        
+        .description {
+            color: #ff4081;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .price {
+            color: #ff5722;
+            font-weight: bold;
+            font-size: 1.8rem;
+            background-color: #fff;
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 3px dashed #ff5722;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .price::before {
+            content: '✦';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff9800;
+        }
+        
+        .price::after {
+            content: '✦';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff9800;
+        }
+        
+        .game-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 380px;
+            height: 380px;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 15px solid #ffccbc;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+            background-color: #fff;
+        }
+        
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-size: 1.3rem;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .wheel-text {
+            position: absolute;
+            width: 140px;
+            text-align: center;
+            transform-origin: center;
+            z-index: 2;
+            line-height: 1.3;
+            word-break: break-word;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            border: 5px solid white;
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #ff5722;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 10;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+        }
+        
+        .pointer::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        .egg-machine {
+            width: 280px;
+            height: 380px;
+            position: relative;
+        }
+        
+        .machine-top {
+            width: 220px;
+            height: 90px;
+            background: linear-gradient(to bottom, #ff8a65, #ff5722);
+            border-radius: 110px 110px 0 0;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .machine-top:before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 70px;
+            background: #ffccbc;
+            border-radius: 100px 100px 0 0;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .machine-body {
+            width: 220px;
+            height: 270px;
+            background: linear-gradient(to bottom, #ff8a65, #ff5722);
+            margin: 0 auto;
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .machine-window {
+            width: 180px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            border: 8px solid #ffccbc;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .egg {
+            width: 70px;
+            height: 90px;
+            background: linear-gradient(to bottom, #e91e63, #ff4081);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+        
+        .egg::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            background: linear-gradient(to bottom, #ff80ab, #f50057);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0.7;
+        }
+        
+        .egg.open {
+            animation: openEgg 0.5s forwards;
+        }
+        
+        @keyframes openEgg {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+            100% { 
+                transform: translateX(-50%) scale(1); 
+                background: transparent;
+                box-shadow: none;
+            }
+        }
+        
+        .result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e91e63;
+            opacity: 0;
+            transition: opacity 0.5s;
+            text-align: center;
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .result.show {
+            opacity: 1;
+        }
+        
+        .lever {
+            position: absolute;
+            width: 35px;
+            height: 110px;
+            background: #795548;
+            bottom: 0;
+            right: 30px;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            transform-origin: bottom center;
+            transition: transform 0.3s;
+            box-shadow: 0 -5px 8px rgba(0,0,0,0.2);
+        }
+        
+        .lever::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            width: 25px;
+            height: 25px;
+            background: #5d4037;
+            border-radius: 50%;
+        }
+        
+        .lever.pulled {
+            transform: rotate(-30deg);
+        }
+        
+        .button {
+            background: linear-gradient(to bottom, #ff4081, #e91e63);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+        
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .button:active {
+            transform: translateY(2px);
+        }
+        
+        .button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(30deg);
+            transition: all 0.3s;
+        }
+        
+        .button:hover::after {
+            transform: rotate(30deg) translate(10px, 10px);
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 18px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            font-size: 1.3rem;
+            color: #ff5722;
+            display: none;
+            border-left: 8px solid #ff4081;
+        }
+        
+        .share-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .share-title {
+            color: #ff4081;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(to right, #ff4081, #e91e63);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .share-link {
+            display: flex;
+            margin-top: 20px;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .share-link input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 1.1rem;
+            background: transparent;
+            font-family: 'ZCOOL QingKe HuangYou', cursive;
+        }
+        
+        .share-link button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .share-link button:hover {
+            background: #e91e63;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #ff4081;
+            font-size: 1rem;
+            padding-top: 20px;
+            border-top: 2px dashed #ffccbc;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #f00;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 100;
+        }
+        
+        @media (max-width: 768px) {
+            .game-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .wheel-container, .egg-machine {
+                width: 300px;
+            }
+            
+            .wheel-container {
+                height: 300px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h1::before, h1::after {
+                display: none;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .share-btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>双十一惊喜揭晓</h1>
+            <p class="description">支付5元即可获得神秘礼物一份</p>
+            <p class="price">只需5元</p>
+        </div>
+        
+        <div class="game-area">
+            <div class="wheel-container">
+                <div class="wheel" id="wheel">
+                    <!-- 转盘分区将通过JS动态生成 -->
+                </div>
+                <div class="wheel-center">抽奖<br>转盘</div>
+                <div class="pointer"></div>
+            </div>
+            
+            <div class="egg-machine">
+                <div class="machine-top"></div>
+                <div class="machine-body">
+                    <div class="machine-window">
+                        <div class="egg" id="egg"></div>
+                        <div class="result" id="result"></div>
+                    </div>
+                    <div class="lever" id="lever"></div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="button" id="startBtn">
+            <i class="fas fa-gift"></i> 开始抽奖
+        </button>
+        
+        <div class="message" id="message">
+            <i class="fas fa-info-circle"></i> 恭喜您获得神秘礼物！请等待扭蛋机揭晓您的奖品！
+        </div>
+        
+        <div class="share-section" id="shareSection">
+            <h3 class="share-title">分享给好友一起参与</h3>
+            <div class="share-buttons">
+                <button class="share-btn" id="shareWechat">
+                    <i class="fab fa-weixin"></i> 微信分享
+                </button>
+                <button class="share-btn" id="shareQQ">
+                    <i class="fab fa-qq"></i> QQ分享
+                </button>
+                <button class="share-btn" id="shareWeibo">
+                    <i class="fab fa-weibo"></i> 微博分享
+                </button>
+                <button class="share-btn" id="copyLink">
+                    <i class="fas fa-link"></i> 复制链接
+                </button>
+            </div>
+            <div class="share-link">
+                <input type="text" id="shareUrl" value="https://example.com/double11-lottery" readonly>
+                <button id="copyUrlBtn">复制</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>本活动最终解释权归活动主办方所有</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wheel = document.getElementById('wheel');
+            const startBtn = document.getElementById('startBtn');
+            const lever = document.getElementById('lever');
+            const egg = document.getElementById('egg');
+            const result = document.getElementById('result');
+            const message = document.getElementById('message');
+            const shareSection = document.getElementById('shareSection');
+            const shareUrl = document.getElementById('shareUrl');
+            const copyUrlBtn = document.getElementById('copyUrlBtn');
+            const copyLinkBtn = document.getElementById('copyLink');
+            
+            // 奖品列表
+            const prizes = [
+                { name: '5元现金红包', color: '#FF9AA2' },
+                { name: '9.9元优惠券', color: '#FFB7B2' },
+                { name: '神秘盲盒一份', color: '#FFDAC1' },
+                { name: '和我约会一次', color: '#E2F0CB' },
+                { name: '专属定制礼物', color: '#B5EAD7' },
+                { name: '谢谢参与', color: '#C7CEEA' }
+            ];
+            
+            // 创建转盘分区
+            function createWheelSections() {
+                const sectionAngle = 360 / prizes.length;
+                const radius = 190; // 转盘半径
+                
+                prizes.forEach((prize, index) => {
+                    // 创建扇形区域
+                    const section = document.createElement('div');
+                    section.className = 'wheel-section';
+                    section.style.backgroundColor = prize.color;
+                    section.style.transform = `rotate(${index * sectionAngle}deg)`;
+                    
+                    // 创建文字元素 - 独立于扇形，确保不被遮挡
+                    const text = document.createElement('div');
+                    text.className = 'wheel-text';
+                    text.textContent = prize.name;
+                    
+                    // 计算文字位置 - 放在扇形中间偏外位置
+                    const textAngle = (index * sectionAngle) + (sectionAngle / 2);
+                    const textRadius = radius * 0.6; // 文字距离中心的距离
+                    
+                    // 将极坐标转换为笛卡尔坐标
+                    const x = Math.cos((textAngle - 90) * Math.PI / 180) * textRadius;
+                    const y = Math.sin((textAngle - 90) * Math.PI / 180) * textRadius;
+                    
+                    // 设置文字位置和旋转
+                    text.style.left = `calc(50% + ${x}px)`;
+                    text.style.top = `calc(50% + ${y}px)`;
+                    text.style.transform = `translate(-50%, -50%) rotate(${textAngle}deg)`;
+                    text.style.color = '#333';
+                    text.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
+                    text.style.fontWeight = 'bold';
+                    text.style.fontSize = '1.2rem';
+                    
+                    wheel.appendChild(section);
+                    wheel.appendChild(text);
+                });
+            }
+            
+            // 初始化转盘
+            createWheelSections();
+            
+            let isSpinning = false;
+            
+            // 开始抽奖
+            startBtn.addEventListener('click', function() {
+                if (isSpinning) return;
+                
+                isSpinning = true;
+                startBtn.disabled = true;
+                message.style.display = 'block';
+                
+                // 随机选择奖品
+                const prizeIndex = Math.floor(Math.random() * prizes.length);
+                const selectedPrize = prizes[prizeIndex];
+                
+                // 计算转盘停止角度 (多转几圈增加效果)
+                const extraSpins = 5; // 额外旋转圈数
+                const stopAngle = 360 * extraSpins + (360 - (prizeIndex * (360 / prizes.length))) - (360 / prizes.length / 2);
+                
+                // 旋转转盘
+                wheel.style.transform = `rotate(${stopAngle}deg)`;
+                
+                // 转盘停止后显示扭蛋机
+                setTimeout(() => {
+                    lever.classList.add('pulled');
+                    
+                    setTimeout(() => {
+                        egg.style.top = '100px';
+                        
+                        setTimeout(() => {
+                            egg.classList.add('open');
+                            
+                            setTimeout(() => {
+                                result.textContent = selectedPrize.name;
+                                result.classList.add('show');
+                                isSpinning = false;
+                                startBtn.disabled = false;
+                                
+                                // 显示分享区域
+                                shareSection.style.display = 'block';
+                                
+                                // 创建彩色纸屑效果
+                                createConfetti();
+                            }, 500);
+                        }, 800);
+                    }, 300);
+                }, 4000);
+            });
+            
+            // 重置扭蛋机
+            lever.addEventListener('click', function() {
+                if (!isSpinning) {
+                    lever.classList.remove('pulled');
+                    egg.style.top = '-100px';
+                    egg.classList.remove('open');
+                    result.classList.remove('show');
+                    message.style.display = 'none';
+                    wheel.style.transform = 'rotate(0deg)';
+                    shareSection.style.display = 'none';
+                }
+            });
+            
+            // 复制链接功能
+            copyUrlBtn.addEventListener('click', function() {
+                shareUrl.select();
+                document.execCommand('copy');
+                alert('链接已复制到剪贴板！');
+            });
+            
+            copyLinkBtn.addEventListener('click', function() {
+                shareUrl.select();
+                document.execCommand('copy');
+                alert('链接已复制到剪贴板！');
+            });
+            
+            // 创建彩色纸屑效果
+            function createConfetti() {
+                const colors = ['#ff4081', '#e91e63', '#ff5722', '#ff9800', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
+                const container = document.querySelector('.container');
+                
+                for (let i = 0; i < 120; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 12 + 8 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.opacity = '1';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    
+                    container.appendChild(confetti);
+                    
+                    // 动画
+                    const animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 3000 + 2000,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    });
+                    
+                    animation.onfinish = () => {
+                        confetti.remove();
+                    };
+                }
+            }
+            
+            // 初始化分享链接
+            const currentUrl = window.location.href;
+            shareUrl.value = currentUrl;
+        });
+    </script>
+</body>
+</html>
